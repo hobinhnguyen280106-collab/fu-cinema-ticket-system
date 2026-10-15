@@ -1,5 +1,6 @@
 package com.fu.fu_cinama_ticket_system.dto;
 
+import com.fu.fu_cinama_ticket_system.enums.Role;
 import lombok.Value;
 
 import java.io.Serializable;

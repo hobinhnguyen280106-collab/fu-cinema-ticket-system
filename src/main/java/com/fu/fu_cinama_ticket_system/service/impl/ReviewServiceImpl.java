@@ -1,13 +1,15 @@
-import com.fu.cinema.dto.RatingSummary;
-import com.fu.cinema.dto.ReviewForm;
-import com.fu.cinema.entity.Review;
-import com.fu.cinema.entity.ReviewId;
-import com.fu.cinema.exception.BusinessException;
-import com.fu.cinema.repository.BookingRepository;
-import com.fu.cinema.repository.CustomerRepository;
-import com.fu.cinema.repository.MovieRepository;
-import com.fu.cinema.repository.ReviewRepository;
-import com.fu.cinema.service.ReviewService;
+package com.fu.fu_cinama_ticket_system.service.impl;
+
+import com.fu.fu_cinama_ticket_system.dto.RatingSummary;
+import com.fu.fu_cinama_ticket_system.dto.ReviewForm;
+import com.fu.fu_cinama_ticket_system.entity.Review;
+import com.fu.fu_cinama_ticket_system.entity.ReviewId;
+import com.fu.fu_cinama_ticket_system.exception.BusinessException;
+import com.fu.fu_cinama_ticket_system.repository.BookingRepository;
+import com.fu.fu_cinama_ticket_system.repository.CustomerRepository;
+import com.fu.fu_cinama_ticket_system.repository.MovieRepository;
+import com.fu.fu_cinama_ticket_system.repository.ReviewRepository;
+import com.fu.fu_cinama_ticket_system.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

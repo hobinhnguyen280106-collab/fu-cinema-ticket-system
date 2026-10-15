@@ -1,6 +1,6 @@
 package com.fu.fu_cinama_ticket_system.dto;
 
-import com.fu.cinema.enums.AccountStatus;
+import com.fu.fu_cinama_ticket_system.enums.AccountStatus;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

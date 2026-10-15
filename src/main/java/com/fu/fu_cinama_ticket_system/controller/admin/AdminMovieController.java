@@ -1,11 +1,11 @@
 package com.fu.fu_cinama_ticket_system.controller.admin;
 
-import com.fu.cinema.dto.MovieForm;
-import com.fu.cinema.enums.AgeRating;
-import com.fu.cinema.enums.MovieStatus;
-import com.fu.cinema.service.GenreService;
-import com.fu.cinema.service.MovieService;
-import com.fu.cinema.util.PageUtils;
+import com.fu.fu_cinama_ticket_system.dto.MovieForm;
+import com.fu.fu_cinama_ticket_system.enums.AgeRating;
+import com.fu.fu_cinama_ticket_system.enums.MovieStatus;
+import com.fu.fu_cinama_ticket_system.service.GenreService;
+import com.fu.fu_cinama_ticket_system.service.MovieService;
+import com.fu.fu_cinama_ticket_system.util.PageUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

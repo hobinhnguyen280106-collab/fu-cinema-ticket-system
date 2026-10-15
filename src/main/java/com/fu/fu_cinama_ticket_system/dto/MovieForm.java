@@ -1,7 +1,7 @@
 package com.fu.fu_cinama_ticket_system.dto;
 
-import com.fu.cinema.enums.AgeRating;
-import com.fu.cinema.enums.MovieStatus;
+import com.fu.fu_cinama_ticket_system.enums.AgeRating;
+import com.fu.fu_cinama_ticket_system.enums.MovieStatus;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

@@ -1,9 +1,9 @@
 package com.fu.fu_cinama_ticket_system.controller.customer;
 
-import com.fu.cinema.dto.ReviewForm;
-import com.fu.cinema.exception.BusinessException;
-import com.fu.cinema.service.ReviewService;
-import com.fu.cinema.util.SessionUtils;
+import com.fu.fu_cinama_ticket_system.dto.ReviewForm;
+import com.fu.fu_cinama_ticket_system.exception.BusinessException;
+import com.fu.fu_cinama_ticket_system.service.ReviewService;
+import com.fu.fu_cinama_ticket_system.util.SessionUtils;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,12 @@
 package com.fu.fu_cinama_ticket_system.service.impl;
 
-import com.fu.cinema.dto.GenreForm;
-import com.fu.cinema.entity.Genre;
-import com.fu.cinema.exception.BusinessException;
-import com.fu.cinema.exception.ResourceNotFoundException;
-import com.fu.cinema.repository.GenreRepository;
-import com.fu.cinema.repository.MovieRepository;
-import com.fu.cinema.service.GenreService;
+import com.fu.fu_cinama_ticket_system.dto.GenreForm;
+import com.fu.fu_cinama_ticket_system.entity.Genre;
+import com.fu.fu_cinama_ticket_system.exception.BusinessException;
+import com.fu.fu_cinama_ticket_system.exception.ResourceNotFoundException;
+import com.fu.fu_cinama_ticket_system.repository.GenreRepository;
+import com.fu.fu_cinama_ticket_system.repository.MovieRepository;
+import com.fu.fu_cinama_ticket_system.service.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,10 +1,10 @@
 package com.fu.fu_cinama_ticket_system.controller.admin;
 
-import com.fu.cinema.dto.CustomerForm;
-import com.fu.cinema.enums.AccountStatus;
-import com.fu.cinema.exception.BusinessException;
-import com.fu.cinema.service.CustomerService;
-import com.fu.cinema.util.PageUtils;
+import com.fu.fu_cinama_ticket_system.dto.CustomerForm;
+import com.fu.fu_cinama_ticket_system.enums.AccountStatus;
+import com.fu.fu_cinama_ticket_system.exception.BusinessException;
+import com.fu.fu_cinama_ticket_system.service.CustomerService;
+import com.fu.fu_cinama_ticket_system.util.PageUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
