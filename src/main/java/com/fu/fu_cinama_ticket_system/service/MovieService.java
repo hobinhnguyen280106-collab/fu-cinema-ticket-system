@@ -1,8 +1,8 @@
 package com.fu.fu_cinama_ticket_system.service;
 
-import com.fu.fu_cinama_ticket_system.dto.MovieForm;
-import com.fu.fu_cinama_ticket_system.entity.Movie;
-import com.fu.fu_cinama_ticket_system.enums.MovieStatus;
+import com.fu.cinema.dto.MovieForm;
+import com.fu.cinema.entity.Movie;
+import com.fu.cinema.enums.MovieStatus;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -21,7 +21,10 @@ public interface MovieService {
 
     void update(Long movieId, MovieForm form);
 
-    /** @return true nếu đã xoá hẳn, false nếu chỉ chuyển STOPPED (BR-06) */
+    /**
+     * Xoá phim theo quy tắc BR-06:
+     * @return true nếu đã xoá hẳn khỏi database, false nếu chỉ chuyển trạng thái sang STOPPED
+     */
     boolean delete(Long movieId);
 
     List<Movie> findSchedulable();

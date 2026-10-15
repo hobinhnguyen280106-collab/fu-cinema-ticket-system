@@ -1,8 +1,8 @@
 package com.fu.fu_cinama_ticket_system.service;
 
-import com.fu.cinema.dto.BookingRequest;
-import com.fu.cinema.entity.Booking;
-import com.fu.cinema.enums.BookingStatus;
+import com.fu.fu_cinama_ticket_system.dto.BookingRequest;
+import com.fu.fu_cinama_ticket_system.entity.Booking;
+import com.fu.fu_cinama_ticket_system.enums.BookingStatus;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDate;
