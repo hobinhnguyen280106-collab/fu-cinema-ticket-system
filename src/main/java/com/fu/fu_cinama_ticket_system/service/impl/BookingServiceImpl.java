@@ -190,27 +190,5 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus(BookingStatus.CANCELLED);
     }
 
-    // ================= Customer (TODO 28 & 29: Đặt vé & Lịch sử - Chưa làm) =================
 
-    @Override
-    @Transactional
-    public Booking create(Long customerId, BookingRequest request) {
-        throw new UnsupportedOperationException("Chức năng đặt vé thuộc TODO 28");
-    }
-
-    @Override
-    public Page<Booking> findByCustomer(Long customerId, BookingStatus status, int page, int size) {
-        throw new UnsupportedOperationException("Lịch sử đặt vé thuộc TODO 29");
-    }
-
-    @Override
-    public Booking getDetailForCustomer(Long bookingId, Long customerId) {
-        throw new UnsupportedOperationException("Chi tiết vé khách hàng thuộc TODO 29");
-    }
-
-    @Override
-    @Transactional
-    public void cancelByCustomer(Long bookingId, Long customerId) {
-        throw new UnsupportedOperationException("Hủy vé khách hàng thuộc TODO 29");
-    }
 }

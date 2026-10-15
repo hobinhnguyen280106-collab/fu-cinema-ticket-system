@@ -1,8 +1,8 @@
 package com.fu.fu_cinama_ticket_system.service;
 
-import com.fu.cinema.dto.MovieForm;
-import com.fu.cinema.entity.Movie;
-import com.fu.cinema.enums.MovieStatus;
+import com.fu.fu_cinama_ticket_system.dto.MovieForm;
+import com.fu.fu_cinama_ticket_system.entity.Movie;
+import com.fu.fu_cinama_ticket_system.enums.MovieStatus;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

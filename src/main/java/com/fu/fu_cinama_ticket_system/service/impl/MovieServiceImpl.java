@@ -1,15 +1,15 @@
 package com.fu.fu_cinama_ticket_system.service.impl;
 
-import com.fu.cinema.dto.MovieForm;
-import com.fu.cinema.entity.Genre;
-import com.fu.cinema.entity.Movie;
-import com.fu.cinema.enums.MovieStatus;
-import com.fu.cinema.exception.ResourceNotFoundException;
-import com.fu.cinema.repository.GenreRepository;
-import com.fu.cinema.repository.MovieRepository;
-import com.fu.cinema.repository.ShowtimeRepository;
-import com.fu.cinema.service.MovieService;
-import com.fu.cinema.util.ValidationUtils;
+import com.fu.fu_cinama_ticket_system.dto.MovieForm;
+import com.fu.fu_cinama_ticket_system.entity.Genre;
+import com.fu.fu_cinama_ticket_system.entity.Movie;
+import com.fu.fu_cinama_ticket_system.enums.MovieStatus;
+import com.fu.fu_cinama_ticket_system.exception.ResourceNotFoundException;
+import com.fu.fu_cinama_ticket_system.repository.GenreRepository;
+import com.fu.fu_cinama_ticket_system.repository.MovieRepository;
+import com.fu.fu_cinama_ticket_system.repository.ShowtimeRepository;
+import com.fu.fu_cinama_ticket_system.service.MovieService;
+import com.fu.fu_cinama_ticket_system.util.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

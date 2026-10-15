@@ -1,14 +1,14 @@
 package com.fu.fu_cinama_ticket_system.controller;
 
-import com.fu.cinema.dto.SessionUser;
-import com.fu.cinema.entity.Movie;
-import com.fu.cinema.entity.Showtime;
-import com.fu.cinema.service.GenreService;
-import com.fu.cinema.service.MovieService;
-import com.fu.cinema.service.ReviewService;
-import com.fu.cinema.service.ShowtimeService;
-import com.fu.cinema.util.PageUtils;
-import com.fu.cinema.util.SessionUtils;
+import com.fu.fu_cinama_ticket_system.dto.SessionUser;
+import com.fu.fu_cinama_ticket_system.entity.Movie;
+import com.fu.fu_cinama_ticket_system.entity.Showtime;
+import com.fu.fu_cinama_ticket_system.service.GenreService;
+import com.fu.fu_cinama_ticket_system.service.MovieService;
+import com.fu.fu_cinama_ticket_system.service.ReviewService;
+import com.fu.fu_cinama_ticket_system.service.ShowtimeService;
+import com.fu.fu_cinama_ticket_system.util.PageUtils;
+import com.fu.fu_cinama_ticket_system.util.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

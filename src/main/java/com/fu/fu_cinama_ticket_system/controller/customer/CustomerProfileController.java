@@ -1,11 +1,11 @@
 package com.fu.fu_cinama_ticket_system.controller.customer;
 
-import com.fu.cinema.dto.ChangePasswordForm;
-import com.fu.cinema.dto.ProfileForm;
-import com.fu.cinema.dto.SessionUser;
-import com.fu.cinema.exception.BusinessException;
-import com.fu.cinema.service.CustomerService;
-import com.fu.cinema.util.SessionUtils;
+import com.fu.fu_cinama_ticket_system.dto.ChangePasswordForm;
+import com.fu.fu_cinama_ticket_system.dto.ProfileForm;
+import com.fu.fu_cinama_ticket_system.dto.SessionUser;
+import com.fu.fu_cinama_ticket_system.exception.BusinessException;
+import com.fu.fu_cinama_ticket_system.service.CustomerService;
+import com.fu.fu_cinama_ticket_system.util.SessionUtils;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

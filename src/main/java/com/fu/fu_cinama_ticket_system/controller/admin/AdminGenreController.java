@@ -1,8 +1,8 @@
 package com.fu.fu_cinama_ticket_system.controller.admin;
 
-import com.fu.cinema.dto.GenreForm;
-import com.fu.cinema.exception.BusinessException;
-import com.fu.cinema.service.GenreService;
+import com.fu.fu_cinama_ticket_system.dto.GenreForm;
+import com.fu.fu_cinama_ticket_system.exception.BusinessException;
+import com.fu.fu_cinama_ticket_system.service.GenreService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
