@@ -1,0 +1,4 @@
+@'
+# Người chịu trách nhiệm review mặc định cho toàn bộ dự án
+* @hobinhnguyen280106-collab
+'@ | Set-Content -Path ".github\CODEOWNERS" -Encoding UTF8
