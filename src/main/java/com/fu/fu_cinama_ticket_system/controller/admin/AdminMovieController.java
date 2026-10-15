@@ -76,12 +76,17 @@ public class AdminMovieController {
         return "redirect:/admin/movies";
     }
 
+    // ==========================================
+    // TODO 21: Endpoint xử lý xoá phim
+    // ==========================================
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes ra) {
         boolean deleted = movieService.delete(id);
-        ra.addFlashAttribute("success", deleted
-                ? "Đã xoá phim"
-                : "Phim đã có suất chiếu nên được chuyển sang trạng thái STOPPED");
+        if (deleted) {
+            ra.addFlashAttribute("success", "Đã xoá hoàn toàn bộ phim khỏi hệ thống");
+        } else {
+            ra.addFlashAttribute("success", "Phim đã có suất chiếu nên được chuyển sang trạng thái NGỪNG CHIẾU (STOPPED)");
+        }
         return "redirect:/admin/movies";
     }
 
