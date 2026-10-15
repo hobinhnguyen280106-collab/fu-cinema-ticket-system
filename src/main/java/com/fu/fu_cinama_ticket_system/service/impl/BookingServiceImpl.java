@@ -49,18 +49,26 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.countByStatus(BookingStatus.PENDING);
     }
 
-    // ================= Admin (TODO 25: Xác nhận / Hủy đơn - Chưa làm) =================
+    // ================= Admin (TODO 25: Xác nhận / Hủy đơn - BR-13) =================
 
     @Override
     @Transactional
     public void confirm(Long bookingId) {
-        throw new UnsupportedOperationException("Chức năng duyệt đơn thuộc TODO 25");
+        Booking booking = getDetail(bookingId);
+        if (booking.getStatus() != BookingStatus.PENDING) {                               // BR-13
+            throw new BusinessException("Chỉ xác nhận được đơn đang ở trạng thái PENDING");
+        }
+        booking.setStatus(BookingStatus.CONFIRMED);
     }
 
     @Override
     @Transactional
     public void cancelByAdmin(Long bookingId) {
-        throw new UnsupportedOperationException("Chức năng hủy đơn thuộc TODO 25");
+        Booking booking = getDetail(bookingId);
+        if (booking.getStatus() == BookingStatus.CANCELLED) {
+            throw new BusinessException("Đơn đã được huỷ trước đó");
+        }
+        booking.setStatus(BookingStatus.CANCELLED);
     }
 
     // ================= Customer (TODO 28 & 29: Đặt vé & Lịch sử - Chưa làm) =================
