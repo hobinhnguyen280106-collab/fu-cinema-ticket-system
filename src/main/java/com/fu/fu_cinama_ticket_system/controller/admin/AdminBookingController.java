@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 
@@ -35,10 +36,26 @@ public class AdminBookingController {
         return "admin/bookings/list";
     }
 
-    // TODO 24: Chi tiết đơn đặt vé (JOIN FETCH không lỗi Lazy)
+    // TODO 24: Chi tiết đơn đặt vé
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         model.addAttribute("booking", bookingService.getDetail(id));
         return "admin/bookings/detail";
+    }
+
+    // TODO 25: Xác nhận đơn (PENDING -> CONFIRMED theo BR-13)
+    @PostMapping("/{id}/confirm")
+    public String confirm(@PathVariable Long id, RedirectAttributes ra) {
+        bookingService.confirm(id);
+        ra.addFlashAttribute("success", "Đã xác nhận đơn #" + id);
+        return "redirect:/admin/bookings/" + id;
+    }
+
+    // TODO 25: Hủy đơn (-> CANCELLED theo BR-13)
+    @PostMapping("/{id}/cancel")
+    public String cancel(@PathVariable Long id, RedirectAttributes ra) {
+        bookingService.cancelByAdmin(id);
+        ra.addFlashAttribute("success", "Đã huỷ đơn #" + id);
+        return "redirect:/admin/bookings/" + id;
     }
 }

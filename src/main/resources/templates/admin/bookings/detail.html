@@ -16,6 +16,15 @@
         <tr><th>Tổng tiền</th><td class="fw-bold" th:text="${#numbers.formatDecimal(booking.totalAmount, 0, 'COMMA', 0, 'POINT')} + 'đ'"></td></tr>
     </table>
     <div class="d-flex gap-2">
+        <!-- Nút Xác nhận đơn (TODO 25): chỉ hiện khi đơn đang PENDING -->
+        <form th:if="${booking.status.name() == 'PENDING'}" method="post" th:action="@{/admin/bookings/{id}/confirm(id=${booking.bookingId})}">
+            <button class="btn btn-success">Xác nhận</button>
+        </form>
+        <!-- Nút Hủy đơn (TODO 25): chỉ hiện khi đơn chưa bị CANCELLED -->
+        <form th:if="${booking.status.name() != 'CANCELLED'}" method="post" th:action="@{/admin/bookings/{id}/cancel(id=${booking.bookingId})}"
+              onsubmit="return confirm('Huỷ đơn này?');">
+            <button class="btn btn-outline-danger">Huỷ đơn</button>
+        </form>
         <a class="btn btn-secondary" th:href="@{/admin/bookings}">Quay lại</a>
     </div>
 </main>
