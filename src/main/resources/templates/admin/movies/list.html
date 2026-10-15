@@ -5,21 +5,26 @@
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 <main class="container py-4">
     <div th:replace="~{fragments/layout :: flash}"></div>
+
     <div class="d-flex justify-content-between mb-3">
         <h3>Quản lý phim</h3>
         <a class="btn btn-primary" th:href="@{/admin/movies/new}">+ Thêm phim</a>
     </div>
+
+    <!-- Bộ lọc tìm kiếm -->
     <form class="row g-2 mb-3" method="get" th:action="@{/admin/movies}">
-        <div class="col-md-4"><input class="form-control" name="kw" th:value="${kw}" placeholder="Tên phim"></div>
+        <div class="col-md-4">
+            <input class="form-control" name="kw" th:value="${kw}" placeholder="Tìm theo tên phim...">
+        </div>
         <div class="col-md-2">
             <select class="form-select" name="genreId">
-                <option value="">Thể loại</option>
+                <option value="">-- Thể loại --</option>
                 <option th:each="g : ${genres}" th:value="${g.genreId}" th:text="${g.genreName}" th:selected="${g.genreId == genreId}"></option>
             </select>
         </div>
         <div class="col-md-2">
             <select class="form-select" name="status">
-                <option value="">Trạng thái</option>
+                <option value="">-- Trạng thái --</option>
                 <option th:each="s : ${statuses}" th:value="${s}" th:text="${s}" th:selected="${s == status}"></option>
             </select>
         </div>
@@ -30,29 +35,54 @@
                 <option value="duration" th:selected="${sort == 'duration'}">Thời lượng</option>
             </select>
         </div>
-        <div class="col-md-2 d-grid"><button class="btn btn-outline-primary">Lọc</button></div>
+        <div class="col-md-2 d-grid">
+            <button class="btn btn-outline-primary" type="submit">Lọc</button>
+        </div>
     </form>
+
+    <!-- Bảng danh sách phim -->
     <table class="table table-hover align-middle">
-        <thead class="table-light"><tr><th>Tên phim</th><th>Thể loại</th><th>Thời lượng</th><th>Khởi chiếu</th><th>Độ tuổi</th><th>Trạng thái</th><th></th></tr></thead>
+        <thead class="table-light">
+        <tr>
+            <th>Tên phim</th>
+            <th>Thể loại</th>
+            <th>Thời lượng</th>
+            <th>Khởi chiếu</th>
+            <th>Độ tuổi</th>
+            <th>Trạng thái</th>
+            <th class="text-end">Hành động</th>
+        </tr>
+        </thead>
         <tbody>
-        <tr th:if="${movies.empty}"><td colspan="7" class="text-center text-muted">Không có dữ liệu</td></tr>
+        <tr th:if="${movies.empty}">
+            <td colspan="7" class="text-center text-muted">Không có dữ liệu</td>
+        </tr>
         <tr th:each="m : ${movies.content}">
-            <td th:text="${m.title}"></td>
+            <td class="fw-bold" th:text="${m.title}"></td>
             <td th:text="${m.genre.genreName}"></td>
             <td th:text="|${m.duration} phút|"></td>
             <td th:text="${#temporals.format(m.releaseDate, 'dd/MM/yyyy')}"></td>
-            <td th:text="${m.ageRating}"></td>
-            <td th:text="${m.status}"></td>
+            <td><span class="badge bg-secondary" th:text="${m.ageRating}"></span></td>
+            <td>
+                    <span class="badge"
+                          th:classappend="${m.status.name() == 'SHOWING'} ? 'bg-success' : (${m.status.name() == 'COMING_SOON'} ? 'bg-info text-dark' : 'bg-dark')"
+                          th:text="${m.status}"></span>
+            </td>
             <td class="text-end text-nowrap">
                 <a class="btn btn-sm btn-outline-secondary" th:href="@{/admin/movies/{id}/edit(id=${m.movieId})}">Sửa</a>
-                <form class="d-inline" method="post" th:action="@{/admin/movies/{id}/delete(id=${m.movieId})}"
-                      onsubmit="return confirm('Xoá phim? Nếu đã có suất chiếu, phim sẽ chuyển sang STOPPED.');">
-                    <button class="btn btn-sm btn-outline-danger">Xoá</button>
+
+                <!-- Nút xoá (TODO 21) -->
+                <form class="d-inline" method="post"
+                      th:action="@{/admin/movies/{id}/delete(id=${m.movieId})}"
+                      onsubmit="return confirm('Bạn có chắc muốn xoá phim này? Nếu phim đã có suất chiếu, hệ thống sẽ chuyển sang trạng thái STOPPED.');">
+                    <button class="btn btn-sm btn-outline-danger" type="submit">Xoá</button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <!-- Phân trang -->
     <div th:replace="~{fragments/layout :: pagination(${movies}, ${pageUrl})}"></div>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>

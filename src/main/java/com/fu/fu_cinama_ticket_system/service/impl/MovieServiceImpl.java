@@ -43,7 +43,6 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Page<Movie> searchForCustomer(String keyword, Long genreId, int page, int size) {
-        // Khách hàng không thấy phim STOPPED (BR-06)
         return movieRepository.search(ValidationUtils.blankToNull(keyword), genreId,
                 EnumSet.of(MovieStatus.SHOWING, MovieStatus.COMING_SOON),
                 PageRequest.of(Math.max(page, 0), size, Sort.by("releaseDate").descending()));
@@ -88,15 +87,23 @@ public class MovieServiceImpl implements MovieService {
         copy(form, movie);
     }
 
+    // ==========================================
+    // TODO 21: Xoá phim theo quy tắc BR-06
+    // ==========================================
     @Override
     @Transactional
     public boolean delete(Long movieId) {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new ResourceNotFoundException("Phim", movieId));
-        if (showtimeRepository.existsByMovie_MovieId(movieId)) {                   // BR-06: soft delete
+
+        // Kiểm tra xem phim đã có bất kỳ suất chiếu nào chưa
+        if (showtimeRepository.existsByMovie_MovieId(movieId)) {
+            // Soft delete: chuyển sang trạng thái STOPPED
             movie.setStatus(MovieStatus.STOPPED);
             return false;
         }
+
+        // Hard delete: xoá vĩnh viễn khỏi DB nếu chưa có suất chiếu nào
         movieRepository.delete(movie);
         return true;
     }
