@@ -18,6 +18,7 @@ import com.fu.fu_cinama_ticket_system.util.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,7 +64,7 @@ public class BookingServiceImpl implements BookingService {
             throw new BusinessException("Mỗi đơn tối đa " + MAX_SEATS_PER_BOOKING + " ghế");
         }
 
-        // 2. Khoá dòng suất chiếu (PESSIMISTIC_WRITE) → các yêu cầu đặt vé cùng suất được xử lý tuần tự
+        // 2. Khoá suất chiếu (PESSIMISTIC_WRITE) → các yêu cầu đặt vé cùng suất được xử lý tuần tự
         Showtime showtime = showtimeRepository.findByIdForUpdate(request.getShowtimeId())
                 .orElseThrow(() -> new ResourceNotFoundException("Suất chiếu", request.getShowtimeId()));
         if (showtime.getStatus() != ShowtimeStatus.OPEN || !showtime.getStartTime().isAfter(LocalDateTime.now())) {
@@ -108,22 +109,38 @@ public class BookingServiceImpl implements BookingService {
         return bookingRepository.save(booking);
     }
 
-    // ================= Customer (TODO 29: Lịch sử & Hủy vé - Làm sau) =================
+    // ================= Customer (TODO 29: Lịch sử vé, chi tiết & huỷ vé BR-14) =================
 
     @Override
     public Page<Booking> findByCustomer(Long customerId, BookingStatus status, int page, int size) {
-        throw new UnsupportedOperationException("Chức năng lịch sử vé thuộc TODO 29");
+        Pageable pageable = PageRequest.of(Math.max(page, 0), size, Sort.by("bookingDate").descending());
+        return status == null
+                ? bookingRepository.findByCustomer_CustomerId(customerId, pageable)
+                : bookingRepository.findByCustomer_CustomerIdAndStatus(customerId, status, pageable);
     }
 
     @Override
     public Booking getDetailForCustomer(Long bookingId, Long customerId) {
-        throw new UnsupportedOperationException("Chức năng xem vé khách hàng thuộc TODO 29");
+        Booking booking = getDetail(bookingId);
+        if (!booking.getCustomer().getCustomerId().equals(customerId)) {
+            // Không tiết lộ đơn của người khác có tồn tại hay không → trả 404 chống dò ID (IDOR)
+            throw new ResourceNotFoundException("Đơn đặt vé", bookingId);
+        }
+        return booking;
     }
 
     @Override
     @Transactional
     public void cancelByCustomer(Long bookingId, Long customerId) {
-        throw new UnsupportedOperationException("Chức năng hủy vé khách hàng thuộc TODO 29");
+        Booking booking = getDetailForCustomer(bookingId, customerId);
+        if (booking.getStatus() == BookingStatus.CANCELLED) {
+            throw new BusinessException("Đơn đã được huỷ trước đó");
+        }
+        // BR-14: Chỉ được huỷ đơn trước giờ chiếu ít nhất 2 giờ
+        if (LocalDateTime.now().isAfter(booking.getShowtime().getStartTime().minusHours(CANCEL_BEFORE_HOURS))) {
+            throw new BusinessException("Chỉ được huỷ đơn trước giờ chiếu ít nhất " + CANCEL_BEFORE_HOURS + " giờ");
+        }
+        booking.setStatus(BookingStatus.CANCELLED);
     }
 
     // ================= Admin (TODO 24: Danh sách & Chi tiết đơn) =================
