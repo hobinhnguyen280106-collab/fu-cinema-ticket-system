@@ -20,14 +20,16 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long movieId;
 
-    @Column(nullable = false, length = 200)
+    // Tiêu đề phim tiếng Việt: NVARCHAR(200)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(200)")
     private String title;
 
-    @Column(nullable = false, length = 100)
+    // Đạo diễn: NVARCHAR(100)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(100)")
     private String director;
 
     @Column(nullable = false)
-    private Integer duration;                // phút
+    private Integer duration; // phút
 
     @Column(nullable = false)
     private LocalDate releaseDate;
@@ -36,9 +38,11 @@ public class Movie {
     @Column(nullable = false, length = 10)
     private AgeRating ageRating;
 
-    @Column(nullable = false, length = 2000)
+    // Mô tả chi tiết phim: NVARCHAR(2000)
+    @Column(nullable = false, columnDefinition = "NVARCHAR(2000)")
     private String description;
 
+    // URL ảnh poster thì không dấu nên giữ VARCHAR(500) là đủ
     @Column(nullable = false, length = 500)
     private String posterUrl;
 

@@ -19,10 +19,12 @@ public class Genre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genreId;
 
-    @Column(nullable = false, unique = true, length = 50)
+    // Đổi sang NVARCHAR(50) để lưu tên thể loại tiếng Việt (Hành động, Tình cảm,...)
+    @Column(nullable = false, unique = true, columnDefinition = "NVARCHAR(50)")
     private String genreName;
 
-    @Column(nullable = false, length = 500)
+    // Đổi sang NVARCHAR(500) để lưu mô tả tiếng Việt
+    @Column(nullable = false, columnDefinition = "NVARCHAR(500)")
     private String description;
 
     @OneToMany(mappedBy = "genre")
