@@ -10,6 +10,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
+
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // ===== Derived query (mục 9.1) =====
@@ -37,4 +40,46 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
               AND b.status <> com.fu.cinema.enums.BookingStatus.CANCELLED
             """)
     int cancelAllByShowtime(@Param("showtimeId") Long showtimeId);
+
+    // ===== Q5: chi tiết đơn kèm khách, suất chiếu, phim, phòng, vé =====
+    @Query("""
+            SELECT DISTINCT b FROM Booking b
+            JOIN FETCH b.customer c
+            JOIN FETCH b.showtime s
+            JOIN FETCH s.movie
+            JOIN FETCH s.room
+            LEFT JOIN FETCH b.tickets
+            WHERE b.bookingId = :id
+            """)
+    Optional<Booking> findDetailById(@Param("id") Long id);
+
+    // ===== Q6: lọc đơn cho Admin (trạng thái, khoảng ngày, từ khoá khách hàng) =====
+    @Query(value = """
+            SELECT b FROM Booking b
+            JOIN FETCH b.customer c
+            JOIN FETCH b.showtime s
+            JOIN FETCH s.movie m
+            WHERE (:status IS NULL OR b.status = :status)
+              AND (:from IS NULL OR b.bookingDate >= :from)
+              AND (:to IS NULL OR b.bookingDate < :to)
+              AND (:kw IS NULL
+                   OR LOWER(c.fullName) LIKE LOWER(CONCAT('%', :kw, '%'))
+                   OR LOWER(c.email)    LIKE LOWER(CONCAT('%', :kw, '%'))
+                   OR c.mobile          LIKE CONCAT('%', :kw, '%'))
+            """,
+            countQuery = """
+            SELECT COUNT(b) FROM Booking b JOIN b.customer c
+            WHERE (:status IS NULL OR b.status = :status)
+              AND (:from IS NULL OR b.bookingDate >= :from)
+              AND (:to IS NULL OR b.bookingDate < :to)
+              AND (:kw IS NULL
+                   OR LOWER(c.fullName) LIKE LOWER(CONCAT('%', :kw, '%'))
+                   OR LOWER(c.email)    LIKE LOWER(CONCAT('%', :kw, '%'))
+                   OR c.mobile          LIKE CONCAT('%', :kw, '%'))
+            """)
+    Page<Booking> search(@Param("status") BookingStatus status,
+                         @Param("from") LocalDateTime from,
+                         @Param("to") LocalDateTime to,
+                         @Param("kw") String keyword,
+                         Pageable pageable);
 }
