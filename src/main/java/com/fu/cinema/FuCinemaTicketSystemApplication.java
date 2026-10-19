@@ -8,5 +8,6 @@ public class FuCinemaTicketSystemApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FuCinemaTicketSystemApplication.class, args);
+
     }
 }
