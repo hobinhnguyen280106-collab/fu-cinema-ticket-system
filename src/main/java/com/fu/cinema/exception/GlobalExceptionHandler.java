@@ -23,7 +23,9 @@ public class GlobalExceptionHandler {
         return "error/404";
     }
 
-    /** Lỗi nghiệp vụ không được controller bắt → quay lại trang trước kèm flash message. */
+    /**
+     * Lỗi nghiệp vụ không được controller bắt → quay lại trang trước kèm flash message.
+     */
     @ExceptionHandler(BusinessException.class)
     public String handleBusiness(BusinessException ex, HttpServletRequest request) {
         RequestContextUtils.getOutputFlashMap(request).put("error", ex.getMessage());
@@ -43,3 +45,4 @@ public class GlobalExceptionHandler {
         log.error("Unexpected error", ex);                                   // log chi tiết, KHÔNG hiển thị stack trace
         return "error/500";
     }
+}
