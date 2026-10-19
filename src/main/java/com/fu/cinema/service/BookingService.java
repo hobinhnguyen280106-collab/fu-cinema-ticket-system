@@ -1,5 +1,6 @@
 package com.fu.cinema.service;
 
+import com.fu.cinema.dto.BookingRequest;
 import com.fu.cinema.entity.Booking;
 import com.fu.cinema.enums.BookingStatus;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,8 @@ public interface BookingService {
 
     long countPending();
 
-    // [D] issue #14 thêm create(...)
+    // ===== Customer =====
+    Booking create(Long customerId, BookingRequest request);
+
     // [B] issue #15 thêm findByCustomer(...), getDetailForCustomer(...), cancelByCustomer(...)
 }
