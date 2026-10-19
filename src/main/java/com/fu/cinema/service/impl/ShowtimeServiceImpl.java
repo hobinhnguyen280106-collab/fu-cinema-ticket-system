@@ -1,6 +1,7 @@
 package com.fu.cinema.service.impl;
 
 import com.fu.cinema.dto.RoomShowtimeCount;
+import com.fu.cinema.dto.SeatMap;
 import com.fu.cinema.dto.ShowtimeForm;
 import com.fu.cinema.entity.Movie;
 import com.fu.cinema.entity.Room;
@@ -22,7 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +38,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     private final MovieRepository movieRepository;
     private final RoomRepository roomRepository;
     private final BookingRepository bookingRepository;
+    private final TicketRepository ticketRepository;
 
     @Override
     public Page<Showtime> search(Long movieId, Long roomId, LocalDate date, int page, int size) {
@@ -97,6 +101,19 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     public List<Showtime> findUpcomingByMovie(Long movieId) {
         return showtimeRepository.findByMovie_MovieIdAndStatusAndStartTimeAfterOrderByStartTimeAsc(
                 movieId, ShowtimeStatus.OPEN, LocalDateTime.now());
+    }
+
+    @Override
+    public SeatMap getSeatMap(Long showtimeId) {
+        Showtime s = findDetail(showtimeId);
+        if (s.getStatus() != ShowtimeStatus.OPEN || !s.getStartTime().isAfter(LocalDateTime.now())) {
+            throw new BusinessException("Suất chiếu không còn mở bán");                // BR-10
+        }
+        List<String> rows = IntStream.range(0, s.getRoom().getTotalRows())
+                .mapToObj(i -> String.valueOf((char) ('A' + i)))
+                .toList();
+        return new SeatMap(s, rows, s.getRoom().getSeatsPerRow(),
+                new HashSet<>(ticketRepository.findSoldSeatCodes(showtimeId)));
     }
 
     @Override

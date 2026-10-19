@@ -1,6 +1,7 @@
 package com.fu.cinema.service;
 
 import com.fu.cinema.dto.RoomShowtimeCount;
+import com.fu.cinema.dto.SeatMap;
 import com.fu.cinema.dto.ShowtimeForm;
 import com.fu.cinema.entity.Showtime;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,7 @@ public interface ShowtimeService {
 
     List<Showtime> findUpcomingByMovie(Long movieId);
 
-    List<RoomShowtimeCount> countTodayByRoom();
+    SeatMap getSeatMap(Long showtimeId);
 
-    // [D] issue #14 thêm SeatMap getSeatMap(Long showtimeId);
+    List<RoomShowtimeCount> countTodayByRoom();
 }

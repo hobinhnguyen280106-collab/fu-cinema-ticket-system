@@ -3,10 +3,12 @@ package com.fu.cinema.repository;
 import com.fu.cinema.dto.RoomShowtimeCount;
 import com.fu.cinema.entity.Showtime;
 import com.fu.cinema.enums.ShowtimeStatus;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -62,6 +64,11 @@ public interface ShowtimeRepository extends JpaRepository<Showtime, Long> {
                                    @Param("start") LocalDateTime start,
                                    @Param("end") LocalDateTime end,
                                    @Param("excludeId") Long excludeId);
+
+    // Khoá dòng suất chiếu khi đặt vé → 2 người đặt cùng lúc sẽ được xử lý tuần tự
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT s FROM Showtime s WHERE s.showtimeId = :id")
+    Optional<Showtime> findByIdForUpdate(@Param("id") Long id);
 
     // ===== Q11: native SQL Server — số suất chiếu hôm nay theo phòng (dashboard) =====
     @Query(value = """
