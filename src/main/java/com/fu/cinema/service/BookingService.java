@@ -9,6 +9,15 @@ import java.time.LocalDate;
 
 public interface BookingService {
 
+    // ===== Customer =====
+    Booking create(Long customerId, BookingRequest request);
+
+    Page<Booking> findByCustomer(Long customerId, BookingStatus status, int page, int size);
+
+    Booking getDetailForCustomer(Long bookingId, Long customerId);
+
+    void cancelByCustomer(Long bookingId, Long customerId);
+
     // ===== Admin =====
     Page<Booking> search(BookingStatus status, LocalDate fromDate, LocalDate toDate, String keyword, int page, int size);
 
@@ -19,9 +28,4 @@ public interface BookingService {
     void cancelByAdmin(Long bookingId);
 
     long countPending();
-
-    // ===== Customer =====
-    Booking create(Long customerId, BookingRequest request);
-
-    // [B] issue #15 thêm findByCustomer(...), getDetailForCustomer(...), cancelByCustomer(...)
 }
