@@ -1,0 +1,14 @@
+/src/main/java/com/fu/cinema/entity/                Le Cong Duc Nghia
+/pom.xml                                            Ho Binh Nguyen
+/src/main/resources/application.properties          Ho Binh Nguyen
+**/*Customer*                                       Le Cong Duc Nghia
+**/*Profile*                                        Le Cong Duc Nghia
+**/*Genre*                                          Le Vo Quang Vinh
+**/*Movie*                                          Le Vo Quang Vinh
+**/*Review*                                         Le Vo Quang Vinh
+**/*Room*                                           Le Cong Duc Nghia
+**/*Showtime*                                       Le Vo Quang Vinh
+**/*Dashboard*                                      Ho Binh Nguyen
+**/*Booking*                                        Le Cong Duc Nghia
+**/*Ticket*                                         Le Cong Duc Nghia
+**/*Report*                                         Ho Binh Nguyen
