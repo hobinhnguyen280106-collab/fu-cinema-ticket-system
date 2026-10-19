@@ -1,6 +1,8 @@
 package com.fu.cinema.service.impl;
 
+import com.fu.cinema.dto.ChangePasswordForm;
 import com.fu.cinema.dto.CustomerForm;
+import com.fu.cinema.dto.ProfileForm;
 import com.fu.cinema.entity.Account;
 import com.fu.cinema.entity.Customer;
 import com.fu.cinema.enums.AccountStatus;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CustomerServiceImpl implements CustomerService {
+
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
     private final BookingRepository bookingRepository;
@@ -111,6 +114,51 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public long count() {
         return customerRepository.count();
+    }
+
+    // ================= Customer =================
+
+    @Override
+    public ProfileForm getProfile(Long customerId) {
+        Customer c = findWithAccount(customerId);
+        ProfileForm form = new ProfileForm();
+        form.setUsername(c.getAccount().getUsername());
+        form.setFullName(c.getFullName());
+        form.setEmail(c.getEmail());
+        form.setMobile(c.getMobile());
+        form.setBirthday(c.getBirthday());
+        form.setIdentityCard(c.getIdentityCard());
+        return form;
+    }
+
+    @Override
+    @Transactional
+    public void updateProfile(Long customerId, ProfileForm form) {
+        Customer customer = findWithAccount(customerId);
+        String email = form.getEmail().trim().toLowerCase();
+        checkDuplicates(email, form.getMobile(), form.getIdentityCard(), customerId, customer.getAccount().getAccountId());
+        if (ValidationUtils.age(form.getBirthday()) < 13) {
+            throw new BusinessException("Khách hàng phải từ đủ 13 tuổi");
+        }
+        customer.setFullName(form.getFullName().trim());
+        customer.setEmail(email);                            // username đăng nhập KHÔNG đổi
+        customer.setMobile(form.getMobile());
+        customer.setBirthday(form.getBirthday());
+        customer.setIdentityCard(form.getIdentityCard());
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(Long accountId, ChangePasswordForm form) {
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ResourceNotFoundException("Tài khoản", accountId));
+        if (!passwordEncoder.matches(form.getCurrentPassword(), account.getPassword())) {
+            throw new BusinessException("Mật khẩu hiện tại không đúng");
+        }
+        if (!form.getNewPassword().equals(form.getConfirmPassword())) {
+            throw new BusinessException("Mật khẩu nhập lại không khớp");
+        }
+        account.setPassword(passwordEncoder.encode(form.getNewPassword()));
     }
 
     // ================= helpers =================
