@@ -1,5 +1,6 @@
 package com.fu.cinema.repository;
 
+import com.fu.cinema.dto.MovieRevenueDTO;
 import com.fu.cinema.entity.Booking;
 import com.fu.cinema.enums.BookingStatus;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface BookingRepository extends JpaRepository<Booking, Long> {
@@ -82,4 +84,31 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
                          @Param("to") LocalDateTime to,
                          @Param("kw") String keyword,
                          Pageable pageable);
+
+    @Query("""
+            SELECT new com.fu.cinema.dto.MovieRevenueDTO(m.title, COUNT(t), SUM(t.price))
+            FROM Ticket t
+            JOIN t.booking b
+            JOIN t.showtime s
+            JOIN s.movie m
+            WHERE b.status = com.fu.cinema.enums.BookingStatus.CONFIRMED
+              AND b.bookingDate >= :from AND b.bookingDate < :to
+            GROUP BY m.movieId, m.title
+            ORDER BY SUM(t.price) DESC
+            """)
+    List<MovieRevenueDTO> revenueByMovie(@Param("from") LocalDateTime from,
+                                         @Param("to") LocalDateTime to);
+
+    // ===== Q8: đơn CONFIRMED trong kỳ, mới nhất trước =====
+    @Query("""
+            SELECT b FROM Booking b
+            JOIN FETCH b.customer
+            JOIN FETCH b.showtime s
+            JOIN FETCH s.movie
+            WHERE b.status = com.fu.cinema.enums.BookingStatus.CONFIRMED
+              AND b.bookingDate >= :from AND b.bookingDate < :to
+            ORDER BY b.bookingDate DESC
+            """)
+    List<Booking> findConfirmedInPeriod(@Param("from") LocalDateTime from,
+                                        @Param("to") LocalDateTime to);
 }
