@@ -1,0 +1,1 @@
+printf '# FU Cinema Ticket System\n\nAssignment 01 — HSF302.\n' > README.md
