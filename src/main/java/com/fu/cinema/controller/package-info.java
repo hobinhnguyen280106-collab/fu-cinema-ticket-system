@@ -1,3 +1,3 @@
-﻿/** Package controller */
+/** Package controller */
 package com.fu.cinema.controller;
 

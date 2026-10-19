@@ -1,3 +1,3 @@
-﻿/** Package entity */
+/** Package entity */
 package com.fu.cinema.entity;
 

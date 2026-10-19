@@ -1,3 +1,3 @@
-﻿/** Package service */
+/** Package service */
 package com.fu.cinema.service;
 

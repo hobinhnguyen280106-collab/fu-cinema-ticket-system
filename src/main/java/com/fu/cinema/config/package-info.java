@@ -1,3 +1,3 @@
-﻿/** Package config */
+/** Package config */
 package com.fu.cinema.config;
 
