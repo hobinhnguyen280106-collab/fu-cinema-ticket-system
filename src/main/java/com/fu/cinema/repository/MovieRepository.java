@@ -16,5 +16,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     List<Movie> findByStatusInOrderByReleaseDateDesc(Collection<MovieStatus> statuses);
 
-    // [C] issue #9 thêm Q2 search(...), findWithGenreById(...), findByStatusNotOrderByTitleAsc(...) ở dưới đây
+    List<Movie> findByStatusNotOrderByTitleAsc(MovieStatus status);
 }
