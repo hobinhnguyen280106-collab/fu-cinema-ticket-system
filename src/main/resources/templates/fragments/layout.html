@@ -27,16 +27,16 @@
                     <li class="nav-item"><a class="nav-link" th:href="@{/admin}">Dashboard</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/admin/customers}">Khách hàng</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/admin/genres}">Thể loại</a></li>
-                    <!-- [C] menu Quản lý phim (issue #9) -->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/movies}">Quản lý phim</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/admin/rooms}">Phòng chiếu</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/admin/showtimes}">Suất chiếu</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/admin/bookings}">Đơn đặt vé</a></li>
-                    <!-- [D] menu Báo cáo (issue #17) -->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin/reports}">Báo cáo</a></li>
                 </th:block>
 
                 <th:block th:if="${currentUser != null and currentUser.customer}">
                     <li class="nav-item"><a class="nav-link" th:href="@{/customer/bookings}">Vé của tôi</a></li>
-                    <!-- [B] menu Hồ sơ (issue #16) -->
+                    <li class="nav-item"><a class="nav-link" th:href="@{/customer/profile}">Hồ sơ</a></li>
                 </th:block>
             </ul>
 
