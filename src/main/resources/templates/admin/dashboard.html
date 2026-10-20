@@ -7,8 +7,66 @@
 <nav th:replace="~{fragments/layout :: navbar}"></nav>
 <main class="container py-4">
     <div th:replace="~{fragments/layout :: flash}"></div>
-    <h3>Dashboard</h3>
-    <p class="text-muted">Xin chào quản trị viên. Số liệu thống kê sẽ được bổ sung ở issue #20.</p>
+    <h3 class="mb-4">Tổng quan hệ thống</h3>
+
+    <!-- 3 thẻ thống kê -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase">Phim đang chiếu</h6>
+                    <h2 class="display-6 fw-bold" th:text="${showingMoviesCount}">0</h2>
+                    <a th:href="@{/admin/movies(status='SHOWING')}" class="text-white text-decoration-none small">Xem danh sách phim →</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase">Khách hàng</h6>
+                    <h2 class="display-6 fw-bold" th:text="${totalCustomersCount}">0</h2>
+                    <a th:href="@{/admin/customers}" class="text-white text-decoration-none small">Quản lý khách hàng →</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-dark h-100">
+                <div class="card-body">
+                    <h6 class="card-title text-uppercase">Đơn chờ duyệt (PENDING)</h6>
+                    <h2 class="display-6 fw-bold" th:text="${pendingBookingsCount}">0</h2>
+                    <a th:href="@{/admin/bookings(status='PENDING')}" class="text-dark text-decoration-none small fw-bold">Xem đơn chờ duyệt →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bảng số suất chiếu hôm nay theo phòng -->
+    <div class="card">
+        <div class="card-header bg-white fw-bold">
+            Số suất chiếu hôm nay theo phòng
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                <tr>
+                    <th>Tên phòng</th>
+                    <th class="text-center">Số suất chiếu hôm nay</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${roomStats.empty}">
+                    <td colspan="2" class="text-center text-muted py-3">Không có dữ liệu phòng chiếu</td>
+                </tr>
+                <tr th:each="stat : ${roomStats}">
+                    <td th:text="${stat.roomName}">Phòng 1</td>
+                    <td class="text-center">
+                        <span class="badge bg-secondary rounded-pill fs-6" th:text="${stat.showtimeCount}">0</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </main>
 <footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
