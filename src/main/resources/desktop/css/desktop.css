@@ -9,3 +9,11 @@
 .page-title         { -fx-font-size: 20px; -fx-font-weight: bold; }
 .text-field:error, .combo-box:error, .date-picker:error, .spinner:error, .text-area:error {
     -fx-border-color: #d32f2f; -fx-border-width: 1.5;
+
+    .kpi {
+        -fx-background-color: white;
+        -fx-padding: 16;
+        -fx-background-radius: 8;
+        -fx-border-color: #e5e7eb;
+        -fx-border-radius: 8;
+    }

@@ -43,7 +43,7 @@ public class MainController {
                 e -> lblClock.setText(LocalDateTime.now().format(CLOCK))));
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-//        onDashboard();
+        onDashboard();
     }
 
     @FXML private void onDashboard()   { sceneManager.showIn(root, View.DASHBOARD); }
