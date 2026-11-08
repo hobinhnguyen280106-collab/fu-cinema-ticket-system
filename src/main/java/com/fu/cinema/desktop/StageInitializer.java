@@ -22,6 +22,6 @@ public class StageInitializer implements ApplicationListener<StageReadyEvent> {
         sceneManager.init(event.getStage());
 
         // Chuyển sang màn hình chính (MAIN) của TODO 34
-        sceneManager.switchTo(View.MAIN);
+        sceneManager.switchTo(View.LOGIN);
     }
 }
