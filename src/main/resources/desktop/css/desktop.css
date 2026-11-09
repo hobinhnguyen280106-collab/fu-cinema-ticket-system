@@ -17,3 +17,23 @@
         -fx-border-color: #e5e7eb;
         -fx-border-radius: 8;
     }
+
+
+/* Phim ngừng chiếu */
+.table-row-cell:stopped {
+    -fx-background-color: #eeeeee;
+}
+
+.table-row-cell:stopped .table-cell {
+    -fx-text-fill: #9e9e9e;
+}
+
+/* Hover */
+.table-row-cell:hover {
+    -fx-cursor: hand;
+}
+
+/* Giữ trạng thái selection dễ nhìn */
+.table-row-cell:stopped:selected {
+    -fx-background-color: #d1d5db;
+}
