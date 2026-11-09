@@ -1,41 +1,52 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.fu.cinema.desktop.controller.GenreController"
-      spacing="15"
-      styleClass="page">
-    <!-- Tiêu đề -->
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <Label text="Quản lý thể loại" styleClass="page-title"/>
-        <Region HBox.hgrow="ALWAYS"/>
-        <Button fx:id="btnRefresh" text="Làm mới" onAction="#onRefresh"/>
-    </HBox>
-    <!-- Nội dung -->
-    <HBox spacing="20" VBox.vgrow="ALWAYS">
-        <!-- Danh sách thể loại -->
-        <VBox spacing="10" HBox.hgrow="ALWAYS">
-            <Label text="Danh sách thể loại"/>
-            <TableView fx:id="table" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="colName" text="Tên thể loại" prefWidth="180"/>
-                    <TableColumn fx:id="colDesc" text="Mô tả" prefWidth="330"/>
-                </columns>
-            </TableView>
-        </VBox>
-        <!-- Form thêm/sửa -->
-        <VBox fx:id="formBox" spacing="12" prefWidth="300">
-            <Label text="Thông tin thể loại" styleClass="page-title"/>
-            <Label text="Tên thể loại *"/>
-            <TextField fx:id="tfName" promptText="Nhập tên thể loại" maxWidth="Infinity"/>
-            <Label text="Mô tả"/>
-            <TextArea fx:id="taDesc" promptText="Nhập mô tả" prefRowCount="5" wrapText="true" maxWidth="Infinity"/>
-            <Button fx:id="btnSave" text="Lưu thể loại" onAction="#onSave" maxWidth="Infinity" styleClass="primary"/>
-            <Button text="Thêm mới" onAction="#onNew" maxWidth="Infinity"/>
-            <Button fx:id="btnDelete" text="Xoá thể loại" onAction="#onDelete" maxWidth="Infinity"/>
-        </VBox>
-    </HBox>
-</VBox>
+<BorderPane
+        xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fu.cinema.desktop.controller.GenreController" styleClass="page">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 15 0;">
+            <Label text="QUẢN LÝ THỂ LOẠI" styleClass="page-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.62">
+            <items>
+                <!-- Bên trái: Danh sách thể loại -->
+                <VBox spacing="10">
+                    <Label text="Danh sách thể loại" style="-fx-font-size: 15px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="table" VBox.vgrow="ALWAYS" columnResizePolicy="CONSTRAINED_RESIZE_POLICY">
+                        <columns>
+                            <TableColumn fx:id="colName" text="Tên thể loại" prefWidth="180"/>
+                            <TableColumn fx:id="colDesc" text="Mô tả" prefWidth="350"/>
+                        </columns>
+                        <placeholder>
+                            <Label text="Chưa có thể loại nào"/>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+
+                <!-- Bên phải: Form thêm/sửa -->
+                <VBox fx:id="formBox" spacing="12" style="-fx-padding: 15;">
+                    <Label text="THÔNG TIN THỂ LOẠI" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Separator/>
+                    <Label text="Tên thể loại *"/>
+                    <TextField fx:id="tfName" promptText="Nhập tên thể loại" maxWidth="Infinity"/>
+                    <Label text="Mô tả"/>
+                    <TextArea fx:id="taDesc" promptText="Nhập mô tả thể loại" prefRowCount="5" wrapText="true" maxWidth="Infinity"/>
+                    <Separator/>
+
+                    <HBox spacing="10"
+                          alignment="CENTER_LEFT">
+                        <Button text="Thêm mới" onAction="#onNew" prefWidth="95"/>
+                        <Button fx:id="btnSave" text="Lưu" onAction="#onSave" prefWidth="75" styleClass="primary"/>
+                        <Button fx:id="btnDelete" text="Xoá" onAction="#onDelete" prefWidth="75"/>
+                    </HBox>
+                </VBox>
+            </items>
+        </SplitPane>
+    </center>
+</BorderPane>
