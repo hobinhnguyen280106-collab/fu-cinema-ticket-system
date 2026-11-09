@@ -3,50 +3,44 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane
-        xmlns="http://javafx.com/javafx/21"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.fu.cinema.desktop.controller.MovieController"
-        styleClass="page">
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.fu.cinema.desktop.controller.MovieController"
+      spacing="12"
+      styleClass="page">
 
-    <top>
-        <VBox spacing="15">
-            <HBox alignment="CENTER_LEFT" spacing="10">
-                <Label text="QUẢN LÝ PHIM" styleClass="page-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <Button text="Làm mới" onAction="#onRefresh"/>
-                <Button text="+ Thêm phim" onAction="#onAdd" styleClass="primary"/>
-            </HBox>
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Quản lý phim" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="+ Thêm phim" onAction="#onAdd" styleClass="primary"/>
+    </HBox>
+    <!-- Filters -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField fx:id="tfSearch" promptText="Tìm theo tên phim..." prefWidth="220"/>
+        <ComboBox fx:id="cbGenre" promptText="Thể loại" prefWidth="150"/>
+        <ComboBox fx:id="cbStatus" promptText="Trạng thái" prefWidth="150"/>
+        <ComboBox fx:id="cbSort" promptText="Sắp xếp" prefWidth="170"/>
+        <Button fx:id="btnRefresh" text="Làm mới" onAction="#onRefresh"/>
+        <ProgressIndicator fx:id="loading" prefWidth="24" prefHeight="24" visible="false"/>
+    </HBox>
 
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <TextField fx:id="tfSearch" promptText="Tìm theo tên phim..." prefWidth="220"/>
-                <ComboBox fx:id="cbGenre" promptText="Thể loại" prefWidth="160"/>
-                <ComboBox fx:id="cbStatus" promptText="Trạng thái" prefWidth="150"/>
-                <ComboBox fx:id="cbSort" promptText="Sắp xếp" prefWidth="170"/>
-            </HBox>
-        </VBox>
-    </top>
+    <!-- Movie Table -->
+    <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="450">
+        <columns>
+            <TableColumn fx:id="colTitle" text="Tên phim" prefWidth="270"/>
+            <TableColumn fx:id="colGenre" text="Thể loại" prefWidth="130"/>
+            <TableColumn fx:id="colDuration" text="Thời lượng" prefWidth="100"/>
+            <TableColumn fx:id="colRelease" text="Khởi chiếu" prefWidth="130"/>
+            <TableColumn fx:id="colAge" text="Độ tuổi" prefWidth="95"/>
+            <TableColumn fx:id="colStatus" text="Trạng thái" prefWidth="130"/>
+        </columns>
+    </TableView>
 
-    <center>
-        <TableView fx:id="table" BorderPane.alignment="CENTER">
-            <columns>
-                <TableColumn fx:id="colTitle" text="Tên phim" prefWidth="240"/>
-                <TableColumn fx:id="colGenre" text="Thể loại" prefWidth="140"/>
-                <TableColumn fx:id="colDuration" text="Thời lượng" prefWidth="100"/>
-                <TableColumn fx:id="colRelease" text="Khởi chiếu" prefWidth="115"/>
-                <TableColumn fx:id="colAge" text="Độ tuổi" prefWidth="90"/>
-                <TableColumn fx:id="colStatus" text="Trạng thái" prefWidth="115"/>
-            </columns>
-        </TableView>
-    </center>
-
-    <bottom>
-        <VBox spacing="10">
-            <HBox alignment="CENTER_LEFT" spacing="12">
-                <Label fx:id="lblCount" text="0 phim"/>
-                <ProgressIndicator fx:id="progress" prefWidth="22" prefHeight="22" visible="false" managed="false"/>
-            </HBox>
-            <Pagination fx:id="pagination" maxPageIndicatorCount="7"/>
-        </VBox>
-    </bottom>
-</BorderPane>
+    <!-- Pagination -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label fx:id="lblCount" text="0 phim"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Pagination fx:id="pagination" pageCount="1" maxPageIndicatorCount="7"/>
+    </HBox>
+</VBox>
