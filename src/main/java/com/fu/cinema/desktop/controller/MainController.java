@@ -2,6 +2,7 @@ package com.fu.cinema.desktop.controller;
 
 import com.fu.cinema.desktop.navigation.SceneManager;
 import com.fu.cinema.desktop.navigation.View;
+import com.fu.cinema.desktop.session.DesktopSession;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,7 +26,7 @@ public class MainController {
     private static final DateTimeFormatter CLOCK = DateTimeFormatter.ofPattern("HH:mm:ss  dd/MM/yyyy");
 
     private final SceneManager sceneManager;
-//    private final DesktopSession session;                      TODO 36
+    private final DesktopSession session;                      // TODO 36
 
     @FXML
     private BorderPane root;
@@ -36,8 +37,8 @@ public class MainController {
 
     @FXML
     private void initialize() {
-//        lblUser.textProperty().bind(Bindings.concat("Nhân viên: ", session.displayNameProperty()));
-        lblUser.setText("Nhân viên: Quản trị viên");
+        lblUser.textProperty().bind(Bindings.concat("Nhân viên: ", session.displayNameProperty()));
+//        lblUser.setText("Nhân viên: Quản trị viên");
         clock = new Timeline(new KeyFrame(Duration.seconds(1),
                 e -> lblClock.setText(LocalDateTime.now().format(CLOCK))));
         clock.setCycleCount(Animation.INDEFINITE);
@@ -56,7 +57,7 @@ public class MainController {
     @FXML
     private void onLogout() {
         clock.stop();
-//        session.logout();
+        session.logout();
         sceneManager.switchTo(View.LOGIN);
     }
 }
