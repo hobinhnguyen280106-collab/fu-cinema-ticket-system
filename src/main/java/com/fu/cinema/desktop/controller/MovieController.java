@@ -1,12 +1,14 @@
-
 package com.fu.cinema.desktop.controller;
 
 import com.fu.cinema.desktop.facade.MovieFacade;
 import com.fu.cinema.desktop.model.GenreItem;
 import com.fu.cinema.desktop.model.MovieRow;
+import com.fu.cinema.desktop.navigation.SceneManager;
+import com.fu.cinema.desktop.navigation.View;
 import com.fu.cinema.desktop.util.FxAsync;
 import com.fu.cinema.desktop.util.AlertUtil;
 
+import com.fu.cinema.dto.MovieForm;
 import com.fu.cinema.enums.AgeRating;
 import com.fu.cinema.enums.MovieStatus;
 import javafx.animation.PauseTransition;
@@ -19,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 import lombok.RequiredArgsConstructor;
@@ -27,8 +30,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
-// Import MovieStatus, AgeRating từ backend Assignment 01
+import java.util.List;
 
 @Component
 @Scope("prototype")
@@ -37,6 +39,7 @@ public class MovieController {
 
     private final MovieFacade facade;
     private final FxAsync fxAsync;
+    private final SceneManager sceneManager;
 
     @FXML private TextField tfSearch;
     @FXML private ComboBox<GenreItem> cbGenre;
@@ -261,16 +264,46 @@ public class MovieController {
         search();
     }
 
-    // Các chức năng này sẽ hoàn thiện ở TODO 40
+    private record MovieDialogData(List<GenreItem> genres, MovieForm form) {}
+    // THÊM PHIM
     @FXML
-    private void onAdd() {AlertUtil.info("Chức năng thêm phim: TODO 40");
+    private void onAdd() {
+        openDialog(null);
     }
 
+    // SỬA PHIM
     private void editMovie(MovieRow movie) {
-        AlertUtil.info("Sửa phim: " + movie.title() + " (triển khai ở TODO 40)");
+        openDialog(movie.id());
     }
 
+    // MỞ DIALOG THÊM / SỬA
+    private void openDialog(Long movieId) {
+        Window owner = table.getScene().getWindow();
+
+        fxAsync.run(() -> new MovieDialogData(facade.genres(), movieId == null ? new MovieForm() : facade.getForm(movieId)), data -> {
+            SceneManager.Loaded<MovieDialogController> dlg = sceneManager.load(View.MOVIE_DIALOG);
+            dlg.controller().open(owner, data.form(), data.genres()).ifPresent(form -> {
+                fxAsync.runVoid(
+                        () -> facade.save(form),
+                        () -> {
+                            AlertUtil.info("Đã lưu phim");
+                            load(pagination.getCurrentPageIndex());
+                        },
+                        null);
+            });
+        });
+    }
+
+    // XOÁ PHIM
     private void deleteMovie(MovieRow movie) {
-        AlertUtil.info("Xoá phim: " + movie.title() + " (triển khai ở TODO 40)");
+        if (!AlertUtil.confirm("Xoá phim \"" + movie.title() + "\"?")) {return;}
+        fxAsync.run(() -> facade.delete(movie.id()), deleted -> {
+            if (deleted) {
+                AlertUtil.info("Đã xoá phim");
+            } else {
+                AlertUtil.info("Phim đã có suất chiếu → " + "đã chuyển sang STOPPED");
+            }
+            load(pagination.getCurrentPageIndex());
+        });
     }
 }
