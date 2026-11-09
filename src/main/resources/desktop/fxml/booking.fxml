@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.fu.cinema.desktop.controller.BookingAdminController"
+      spacing="12"
+      styleClass="page">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label text="Quản lý đơn đặt vé" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnRefresh" text="Làm mới" onAction="#onRefresh"/>
+    </HBox>
+
+    <!-- Bộ lọc -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField fx:id="tfKeyword" promptText="Tìm theo khách hàng..." prefWidth="210"/>
+        <ComboBox fx:id="cbStatus" promptText="Tất cả trạng thái" prefWidth="155"/>
+        <Label text="Từ ngày:"/>
+        <DatePicker fx:id="dpFrom" prefWidth="145"/>
+        <Label text="Đến ngày:"/>
+        <DatePicker fx:id="dpTo" prefWidth="145"/>
+    </HBox>
+
+    <!-- Bảng đơn đặt vé -->
+    <TableView fx:id="table" VBox.vgrow="ALWAYS" prefHeight="450">
+        <columns>
+            <TableColumn fx:id="colId" text="Mã đơn" prefWidth="80"/>
+            <TableColumn fx:id="colCustomer" text="Khách hàng" prefWidth="160"/>
+            <TableColumn fx:id="colMovie" text="Phim" prefWidth="180"/>
+            <TableColumn fx:id="colRoom" text="Phòng" prefWidth="95"/>
+            <TableColumn fx:id="colSeats" text="Số ghế" prefWidth="75"/>
+            <TableColumn fx:id="colAmount" text="Tổng tiền" prefWidth="130"/>
+            <TableColumn fx:id="colStatus" text="Trạng thái" prefWidth="120"/>
+            <TableColumn fx:id="colDate" text="Ngày đặt" prefWidth="160"/>
+        </columns>
+    </TableView>
+
+    <!-- Footer -->
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <Label fx:id="lblCount" text="0 đơn"/>
+        <ProgressIndicator fx:id="loading" visible="false" prefWidth="22" prefHeight="22"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnConfirm" text="Xác nhận" onAction="#onConfirm" styleClass="primary"/>
+        <Button fx:id="btnCancel" text="Huỷ đơn" onAction="#onCancel"/>
+    </HBox>
+
+    <Pagination fx:id="pagination" pageCount="1" maxPageIndicatorCount="7"/>
+</VBox>
