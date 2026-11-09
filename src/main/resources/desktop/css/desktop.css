@@ -27,3 +27,26 @@
 .legend-free     { -fx-background-color: #e5e7eb; }
 .legend-selected { -fx-background-color: #16a34a; }
 .legend-sold     { -fx-background-color: #6b7280; }
+
+
+/* Đơn đang chờ */
+.st-pending {
+    -fx-text-fill: #b45309;
+    -fx-font-weight: bold;
+}
+
+/* Đơn đã xác nhận */
+.st-confirmed {
+    -fx-text-fill: #15803d;
+    -fx-font-weight: bold;
+}
+
+/* Đơn đã huỷ */
+.st-cancelled {
+    -fx-text-fill: #b91c1c;
+}
+
+/* Hover vào dòng */
+.table-row-cell:hover {
+    -fx-cursor: hand;
+}
