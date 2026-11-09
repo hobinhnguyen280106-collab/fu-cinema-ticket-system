@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.fu.cinema.desktop.controller.GenreController"
+      spacing="15"
+      styleClass="page">
+    <!-- Tiêu đề -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Quản lý thể loại" styleClass="page-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button fx:id="btnRefresh" text="Làm mới" onAction="#onRefresh"/>
+    </HBox>
+    <!-- Nội dung -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <!-- Danh sách thể loại -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Danh sách thể loại"/>
+            <TableView fx:id="table" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colName" text="Tên thể loại" prefWidth="180"/>
+                    <TableColumn fx:id="colDesc" text="Mô tả" prefWidth="330"/>
+                </columns>
+            </TableView>
+        </VBox>
+        <!-- Form thêm/sửa -->
+        <VBox fx:id="formBox" spacing="12" prefWidth="300">
+            <Label text="Thông tin thể loại" styleClass="page-title"/>
+            <Label text="Tên thể loại *"/>
+            <TextField fx:id="tfName" promptText="Nhập tên thể loại" maxWidth="Infinity"/>
+            <Label text="Mô tả"/>
+            <TextArea fx:id="taDesc" promptText="Nhập mô tả" prefRowCount="5" wrapText="true" maxWidth="Infinity"/>
+            <Button fx:id="btnSave" text="Lưu thể loại" onAction="#onSave" maxWidth="Infinity" styleClass="primary"/>
+            <Button text="Thêm mới" onAction="#onNew" maxWidth="Infinity"/>
+            <Button fx:id="btnDelete" text="Xoá thể loại" onAction="#onDelete" maxWidth="Infinity"/>
+        </VBox>
+    </HBox>
+</VBox>
