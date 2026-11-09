@@ -1,4 +1,5 @@
 package com.fu.cinema.desktop.model;
 
-public record GenreItem() {
+public record GenreItem(Long id, String name) {
+    @Override public String toString() { return name; }           // ComboBox hiển thị bằng toString()
 }
