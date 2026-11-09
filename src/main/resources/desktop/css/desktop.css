@@ -9,31 +9,21 @@
 .page-title         { -fx-font-size: 20px; -fx-font-weight: bold; }
 .text-field:error, .combo-box:error, .date-picker:error, .spinner:error, .text-area:error {
     -fx-border-color: #d32f2f; -fx-border-width: 1.5;
-
-    .kpi {
-        -fx-background-color: white;
-        -fx-padding: 16;
-        -fx-background-radius: 8;
-        -fx-border-color: #e5e7eb;
-        -fx-border-radius: 8;
-    }
-
-
-/* Phim ngừng chiếu */
-.table-row-cell:stopped {
-    -fx-background-color: #eeeeee;
 }
-
-.table-row-cell:stopped .table-cell {
-    -fx-text-fill: #9e9e9e;
+.kpi {
+    -fx-background-color: white;
+    -fx-padding: 16;
+    -fx-background-radius: 8;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
 }
-
-/* Hover */
-.table-row-cell:hover {
-    -fx-cursor: hand;
-}
-
-/* Giữ trạng thái selection dễ nhìn */
-.table-row-cell:stopped:selected {
-    -fx-background-color: #d1d5db;
-}
+.screen          { -fx-background-color: #9ca3af; -fx-text-fill: white; -fx-alignment: center; -fx-padding: 4; -fx-font-weight: bold; }
+.row-label       { -fx-font-weight: bold; -fx-min-width: 24; -fx-alignment: center; }
+.seat            { -fx-min-width: 34; -fx-min-height: 30; -fx-background-color: #e5e7eb; -fx-background-radius: 6 6 2 2; }
+.seat:hover      { -fx-background-color: #d1d5db; }
+.seat:selected   { -fx-background-color: #16a34a; -fx-text-fill: white; }
+.seat:sold       { -fx-background-color: #6b7280; -fx-text-fill: white; -fx-opacity: 1; }
+.legend-swatch   { -fx-min-width: 16; -fx-min-height: 16; -fx-background-radius: 3; }
+.legend-free     { -fx-background-color: #e5e7eb; }
+.legend-selected { -fx-background-color: #16a34a; }
+.legend-sold     { -fx-background-color: #6b7280; }
